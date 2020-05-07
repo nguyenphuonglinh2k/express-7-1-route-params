@@ -10,7 +10,8 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
   },
   "engines": {
     "node": "12.x"
@@ -22,7 +23,6 @@
   "keywords": [
     "node",
     "glitch",
-    "express",
-    "pug"
+    "express"
   ]
 }
