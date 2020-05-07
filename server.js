@@ -29,6 +29,16 @@ app.get('/todos', function(req, res) {
 app.get('/search', function(req, res) {
   res.render('search');
 });
+
+app.get('/create', function(req, res) {
+  res.render('create');
+});
+
+app.get('todos/create', function(req, res) {
+  var item = req.query.todo;
+  lists.push(item);
+  res.director('back');
+});
         
 // https://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
