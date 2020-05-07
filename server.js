@@ -30,7 +30,7 @@ app.get('/search', function(req, res) {
   res.render('search');
 });
 
-app.get('/create', function(req, res) {
+app.get('/todos/create', function(req, res) {
   res.render('create');
 });
 
