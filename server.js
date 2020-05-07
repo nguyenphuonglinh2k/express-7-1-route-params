@@ -34,7 +34,7 @@ app.get('/create', function(req, res) {
   res.render('create');
 });
 
-app.get('todos/create', function(req, res) {
+app.post('todos/create', function(req, res) {
   var item = req.query.todo;
   lists.push(item);
   res.director('back');
@@ -42,7 +42,9 @@ app.get('todos/create', function(req, res) {
         
 // https://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
-  response.send('I love CodersX');
+  response.render('index.pug', {
+    lists: lists
+  });
 });
 
 // listen for requests :)
