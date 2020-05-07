@@ -4,7 +4,11 @@
 // we've started you off with Express (https://expressjs.com/)
 // but feel free to use whatever libraries or frameworks you'd like through `package.json`.
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
+app.use(bodyParser.json()) // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 app.set('views', './views');
 app.set('view engine', 'pug');
@@ -34,10 +38,10 @@ app.get('/todos/create', function(req, res) {
   res.render('create');
 });
 
-app.post('todos/create', function(req, res) {
+app.post('/todos/create', function(req, res) {
   var item = req.body.todo;
   lists.push(item);
-  res.director('back');
+  res.direction('back');
 });
         
 // https://expressjs.com/en/starter/basic-routing.html
