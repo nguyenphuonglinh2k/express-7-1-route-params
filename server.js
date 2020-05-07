@@ -41,7 +41,7 @@ app.get('/todos/create', function(req, res) {
 app.post('/todos/create', function(req, res) {
   var item = req.body.todo;
   lists.push(item);
-  res.direction('back');
+  res.redirect('back');
 });
         
 // https://expressjs.com/en/starter/basic-routing.html
