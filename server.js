@@ -9,14 +9,18 @@ const app = express();
 app.set('views', './views');
 app.set('view engine', 'pug');
 
+var lists = [
+  'Đi chợ',
+  'Nấu cơm',
+  'Rửa bát',
+  'Học tại CodersX'
+];
+
 app.get('/todos', function(req, res) {
+  var q = req.query;
+  var matchedItem = lists.filter(item => item.toLowerCase().indexOf(q.toLowerCase()) !== -1)
   res.render('index.pug', {
-    lists: [
-      'Đi chợ',
-      'Nấu cơm',
-      'Rửa bát',
-      'Học tại CodersX'
-    ]
+    lists: matchedItem
   });
 });
 
