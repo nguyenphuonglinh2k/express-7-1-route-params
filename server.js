@@ -17,13 +17,19 @@ var lists = [
 ];
 
 app.get('/todos', function(req, res) {
-  var q = req.query;
+  var q = req.query.q;
+  
   var matchedItem = lists.filter(item => item.toLowerCase().indexOf(q.toLowerCase()) !== -1)
+  
   res.render('index.pug', {
     lists: matchedItem
   });
 });
 
+app.get('/search', function(req, res) {
+  res.render('search');
+});
+        
 // https://expressjs.com/en/starter/basic-routing.html
 app.get('/', (request, response) => {
   response.send('I love CodersX');
