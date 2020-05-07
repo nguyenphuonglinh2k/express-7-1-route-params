@@ -35,7 +35,7 @@ app.get('/todos/create', function(req, res) {
 });
 
 app.post('todos/create', function(req, res) {
-  var item = req.query.todo;
+  var item = req.body.todo;
   lists.push(item);
   res.director('back');
 });
