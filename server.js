@@ -53,9 +53,12 @@ app.get("/", (request, response) => {
 });
 
 app.get('/todos/:id/delete', function(req, res) {
-  var id = req.param.id;
+  var id = parseInt(req.params.id);
   var item = db.get('todos').find({ id: id }).value();
-  db.get('todos').remove(item).write();
+  var index = db.get('todos').indexOf(item).value();
+  db.get('todos').splice(index, 1).write();
+  
+  res.redirect('back');
 });
 
 // listen for requests :)
