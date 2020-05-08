@@ -55,7 +55,7 @@ app.get("/", (request, response) => {
 app.get('/todos/:id/delete', function(req, res) {
   var id = req.param.id;
   var item = db.get('todos').find({ id: id }).value();
-  db.get('todos').
+  db.get('todos').remove(item).write();
 });
 
 // listen for requests :)
