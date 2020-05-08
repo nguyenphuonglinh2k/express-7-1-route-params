@@ -1,53 +1,54 @@
-// server.js
-// where your node app starts
+const express = require("express");
+const bodyParser = require("body-parser");
+const low = require("lowdb");
+const FileSync = require("lowdb/adapters/FileSync");
 
-// we've started you off with Express (https://expressjs.com/)
-// but feel free to use whatever libraries or frameworks you'd like through `package.json`.
-const express = require('express');
-const bodyParser = require('body-parser');
+const adapter = new FileSync("db.json");
+const db = low(adapter);
+
+// Set some defaults (required if your JSON file is empty)
+db.defaults({ todos: [] }).write();
 
 const app = express();
-app.use(bodyParser.json()) // for parsing application/json
-app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-app.set('views', './views');
-app.set('view engine', 'pug');
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-var lists = [
-  'Đi chợ',
-  'Nấu cơm',
-  'Rửa bát',
-  'Học tại CodersX'
-];
+app.set("views", "./views");
+app.set("view engine", "pug");
 
-app.get('/todos', function(req, res) {
+app.get("/todos", function(req, res) {
   var q = req.query.q;
-  
-  var matchedItem = lists.filter(item => item.toLowerCase().indexOf(q.toLowerCase()) !== -1)
-  
-  res.render('index.pug', {
+
+  var matchedItem = db
+    .get("todos")
+    .filter(item => item.toLowerCase().indexOf(q.toLowerCase()) !== -1);
+
+  res.render("index.pug", {
     lists: matchedItem
   });
 });
 
-app.get('/search', function(req, res) {
-  res.render('search');
+app.get("/search", function(req, res) {
+  res.render("search");
 });
 
-app.get('/todos/create', function(req, res) {
-  res.render('create');
+app.get("/todos/create", function(req, res) {
+  res.render("create");
 });
 
-app.post('/todos/create', function(req, res) {
+app.post("/todos/create", function(req, res) {
   var item = req.body.todo;
-  lists.push(item);
-  res.redirect('back');
+  db.get("todos")
+    .push(item)
+    .write();
+  res.redirect("back");
 });
-        
+
 // https://expressjs.com/en/starter/basic-routing.html
-app.get('/', (request, response) => {
-  response.render('index.pug', {
-    lists: lists
+app.get("/", (request, response) => {
+  response.render("index.pug", {
+    lists: db.get("todos").value()
   });
 });
 
